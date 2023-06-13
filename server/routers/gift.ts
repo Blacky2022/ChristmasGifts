@@ -6,10 +6,10 @@ export const giftRouter = Router()
 
 giftRouter
 
-	.get('/', async (req: Request, res: Response): Promise<void>=> {
+	.get('/', async (req: Request, res: Response): Promise<void> => {
 		const giftsList = await GiftRecord.listAll()
 
-		res.render('gift/list', {
+		res.json({
 			giftsList,
 		})
 	})
@@ -23,5 +23,16 @@ giftRouter
 		const newGift = new GiftRecord(data)
 		await newGift.insert()
 
-		res.redirect('/gift')
+		res.json()
+	})
+	.delete('/:id', async (req: Request, res: Response): Promise<void> => {
+		const gift = await GiftRecord.getOne(req.params.id)
+		if (!gift) {
+			throw new Error('Taki prezent nie istnieje!')
+		}
+
+		if ((await gift.countGivenGifts()) > 0) {
+			throw new ValidationError('Cannot remvoe given gifty.')
+		}
+		res.end()
 	})

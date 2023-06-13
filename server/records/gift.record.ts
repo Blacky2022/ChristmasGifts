@@ -1,11 +1,11 @@
-import { FieldPacket, RowDataPacket } from 'mysql2'
+import { FieldPacket } from 'mysql2'
 import { pool } from '../utils/db'
 import { ValidationError } from '../utils/errors'
 import { v4 as uuid } from 'uuid'
-
+import { GiftEntity } from '../types'
 type GiftRecordResults = [GiftRecord[], FieldPacket[]]
 
-export class GiftRecord {
+export class GiftRecord implements GiftEntity {
 	id?: string
 	name: string
 	count: number
@@ -43,7 +43,7 @@ export class GiftRecord {
 		return results.map(obj => new GiftRecord(obj))
 	}
 
-	static async getOne(id: number): Promise<null | GiftRecord> {
+	static async getOne(id: string): Promise<null | GiftRecord> {
 		const [results] = (await pool.execute('SELECT * FROM `gifts` WHERE `id` = :id', {
 			id,
 		})) as GiftRecordResults
@@ -58,6 +58,11 @@ export class GiftRecord {
 			}
 		)) as GiftRecordResults
 		return count
+	}
+	async delete(): Promise<void> {
+		await pool.execute('DELETE FROM `gifts` WHERE `id` = :id', {
+			id: this.id,
+		})
 	}
 }
 

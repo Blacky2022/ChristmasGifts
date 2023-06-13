@@ -1,0 +1,17 @@
+.container {
+	border: 1px solid lightgrey;
+	margin-top: 30px;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 1em lightgrey;
+	max-width: 500px;
+}
+h1 {
+	text-align: center;
+}
+li {
+	line-height: 2.6em;
+}
+select {
+	height: 35px;
+}
