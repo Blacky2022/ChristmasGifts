@@ -7,6 +7,7 @@ import { homeRouter } from './routers/home'
 import { childRouter } from './routers/child'
 import { giftRouter } from './routers/gift'
 import cors from 'cors'
+import bodyParser from 'body-parser'
 require('./utils/db')
 const { handlebarsHelpers } = require('./utils/handlebars-helpers')
 
@@ -29,6 +30,7 @@ app.engine(
 )*/
 
 //app.set('view engine', '.hbs')
+app.use(bodyParser.json())
 app.use(
 	cors({
 		origin: 'http://localhost:3000',

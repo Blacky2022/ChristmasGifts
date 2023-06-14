@@ -4,6 +4,7 @@ import { GiftTableRow } from './GiftTableRow'
 
 interface Props {
 	gifts: GiftEntity[]
+	onGiftsChange: () => void
 }
 export const GiftsTable = (props: Props) => (
 	<table>
@@ -17,7 +18,7 @@ export const GiftsTable = (props: Props) => (
 		</thead>
 		<tbody>
 			{props.gifts.map(gift => (
-				<GiftTableRow gift={gift} key={gift.id} />
+				<GiftTableRow gift={gift} key={gift.id} onGiftsChange={props.onGiftsChange} />
 			))}
 		</tbody>
 	</table>

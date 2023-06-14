@@ -3,17 +3,24 @@ import React, { MouseEventHandler } from 'react'
 import { GiftEntity } from 'types'
 interface Props {
 	gift: GiftEntity
+	onGiftsChange: () => void
 }
 export const GiftTableRow = (props: Props) => {
 	const deleteGift: MouseEventHandler<HTMLAnchorElement> = async e => {
 		e.preventDefault()
-		if (!window.confirm(`Czy na pewno chcesz usunąć? ${props.gift.name}?`)) {
+		if (!window.confirm(`Czy na pewno chcesz usunąć ${props.gift.name}?`)) {
 			return
 		}
 
-		await fetch(`http://localhost:3001/gift/${props.gift.id}`, {
+		const res = await fetch(`http://localhost:3001/gift/${props.gift.id}`, {
 			method: 'DELETE',
 		})
+		if (res.status === 400) {
+			const error = await res.json()
+			alert(`Błąd serwera: ${error.message}`)
+			return
+		}
+		props.onGiftsChange()
 	}
 	return (
 		<tr>

@@ -8,7 +8,7 @@ export const handleError = (err: Error, req: Request, res: Response, next: NextF
         if (err instanceof NotFoundError) {
         res
             .status(404)
-            .render('error', {
+            .json('error', {
                 message: 'Nie można znaleźć elementu o danym ID.',
             });
         return;
@@ -17,7 +17,7 @@ export const handleError = (err: Error, req: Request, res: Response, next: NextF
 
 	console.error(err)
 
-	res.status(err instanceof ValidationError ? 400 : 500).render('error', {
+	res.status(err instanceof ValidationError ? 400 : 500).json({
 		message: err instanceof ValidationError ? err.message : 'Przepraszamy, spróbuj ponownie za kilka minut.',
 	})
 }
