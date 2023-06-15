@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Spinner } from '../Common/Spinner/Spinner'
 import { ListChildrenRes } from 'types'
 import { ChildrenTable } from './ChildrenTable'
-
+import './ChildrenList.css'
 export const ChildrenList = () => {
 	const [data, setData] = useState<ListChildrenRes | null>(null)
 
@@ -22,9 +22,9 @@ export const ChildrenList = () => {
 	}
 
 	return (
-		<>
-			<h1>Gifts</h1>
+		<div className='container'>
+			<h1>Zaktualizuj prezent</h1>
 			<ChildrenTable  giftsList={data.giftsList}  childrenList={data.childrenList} />
-		</>
+		</div>
 	)
 }

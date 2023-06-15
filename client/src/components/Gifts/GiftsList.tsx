@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GiftEntity } from 'types'
 import { GiftsTable } from './GiftsTable'
 import { Spinner } from '../Common/Spinner/Spinner'
-
+import './GiftsList.css'
 export const GiftsList = () => {
 	const [GiftsList, setGiftsList] = useState<GiftEntity[] | null>(null)
 
@@ -22,9 +22,9 @@ export const GiftsList = () => {
 	}
 
 	return (
-		<>
-			<h1>Gifts</h1>
+		<div className='container'>
+			<h1>Prezenty</h1>
 			<GiftsTable gifts={GiftsList} onGiftsChange={refreshGifts} />
-		</>
+		</div>
 	)
 }

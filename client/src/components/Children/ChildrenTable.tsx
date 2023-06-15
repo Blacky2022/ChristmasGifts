@@ -10,8 +10,8 @@ export const ChildrenTable = (props: Props) => (
 	<table>
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Gift</th>
+				<th>Imie</th>
+				<th>Prezent</th>
 			</tr>
 		</thead>
 		<tbody>

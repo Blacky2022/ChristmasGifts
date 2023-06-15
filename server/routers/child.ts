@@ -2,7 +2,8 @@ import { Request, Response, Router } from 'express'
 import { ChildRecord } from '../records/child.record'
 import { GiftRecord } from '../records/gift.record'
 import { ValidationError } from '../utils/errors'
-import { CreateChildReq, ListChildrenRes, SetGiftForChildReq } from '../types'
+import { CreateChildReq, ListChildrenRes, SetGiftForChildReq, childAndGiftEntity } from '../types'
+import { ChildAndGiftRecord } from '../records/childAndGifts.record'
 
 export const childRouter = Router()
 
@@ -16,6 +17,12 @@ childRouter // /child
 			childrenList,
 			giftsList,
 		} as ListChildrenRes)
+	})
+	.get('/all', async (req: Request, res: Response): Promise<void> => {
+		const childrenAndGiftsList = await ChildAndGiftRecord.listAll()
+		res.json({
+			childrenAndGiftsList,
+		})
 	})
 
 	.post('/', async (req: Request, res: Response): Promise<void> => {
