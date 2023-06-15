@@ -2,13 +2,14 @@ import { FieldPacket, RowDataPacket } from 'mysql2'
 import { pool } from '../utils/db'
 import { ValidationError } from '../utils/errors'
 import { v4 as uuid } from 'uuid'
+import { ChildEntity } from '../types'
 
 type ChildRecordResults = [ChildRecord[], FieldPacket[]]
-export class ChildRecord {
+export class ChildRecord implements ChildEntity {
 	id?: string
 	name: string
 	giftId: string
-	constructor(obj: ChildRecord) {
+	constructor(obj: ChildEntity) {
 		if (!obj.name || obj.name.length < 3 || obj.name.length > 25) {
 			throw new ValidationError('Imię musi mieć od 3 do 25 znaków.')
 		}

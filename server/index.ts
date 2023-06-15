@@ -3,7 +3,6 @@ import 'express-async-errors'
 //import { engine } from 'express-handlebars'
 //import methodOverride from 'method-override'
 import { handleError } from './utils/errors'
-import { homeRouter } from './routers/home'
 import { childRouter } from './routers/child'
 import { giftRouter } from './routers/gift'
 import cors from 'cors'
@@ -36,7 +35,7 @@ app.use(
 		origin: 'http://localhost:3000',
 	})
 )
-app.use('/', homeRouter)
+
 app.use('/child', childRouter)
 app.use('/gift', giftRouter)
 

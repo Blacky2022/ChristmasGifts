@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { MouseEventHandler } from 'react'
+import { Link } from 'react-router-dom'
 import { GiftEntity } from 'types'
 interface Props {
 	gift: GiftEntity
@@ -24,8 +25,9 @@ export const GiftTableRow = (props: Props) => {
 	}
 	return (
 		<tr>
-			<td>{props.gift.id}</td>
-			<td>{props.gift.name}</td>
+			<th>
+				<Link to={`/gift/${props.gift.id}`}>{props.gift.name}</Link>
+			</th>
 			<td>{props.gift.count}</td>
 			<td>
 				<a href='#' onClick={deleteGift}>

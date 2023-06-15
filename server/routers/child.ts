@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express'
 import { ChildRecord } from '../records/child.record'
 import { GiftRecord } from '../records/gift.record'
 import { ValidationError } from '../utils/errors'
+import { CreateChildReq, ListChildrenRes, SetGiftForChildReq } from '../types'
 
 export const childRouter = Router()
 
@@ -14,24 +15,29 @@ childRouter // /child
 		res.json({
 			childrenList,
 			giftsList,
-		})
+		} as ListChildrenRes)
 	})
 
 	.post('/', async (req: Request, res: Response): Promise<void> => {
-		const newChild = new ChildRecord(req.body)
+		const newChild = new ChildRecord(req.body as CreateChildReq)
 		await newChild.insert()
 
-		res.json()
+		res.json(newChild)
 	})
 
 	.patch('/gift/:childId', async (req: Request, res: Response): Promise<void> => {
+		const {
+			body,
+		}: {
+			body: SetGiftForChildReq
+		} = req
 		const child = await ChildRecord.getOne(req.params.childId)
 
 		if (child === null) {
 			throw new ValidationError('Nie znaleziono dziecka z podanym ID.')
 		}
 
-		const gift = req.body.giftId === '' ? null : await GiftRecord.getOne(req.body.giftId)
+		const gift = body.giftId === '' ? null : await GiftRecord.getOne(body.giftId)
 
 		if (gift) {
 			if (gift.count <= (await gift.countGivenGifts())) {
@@ -42,5 +48,5 @@ childRouter // /child
 		child.giftId = gift?.id ?? null
 		await child.update()
 
-		res.json()
+		res.json(child)
 	})
