@@ -61,6 +61,7 @@ export const AddGift = () => {
 			setResultInfo(`${data.name} added with ID ${data.id}.`)
 		} finally {
 			setLoading(false)
+			window.location.reload()
 		}
 	}
 
@@ -80,8 +81,8 @@ export const AddGift = () => {
 	}
 
 	return (
-		<div className='form-container'>
-			<form onSubmit={sendForm}>
+		<div className='container'>
+			<form className='form-container' onSubmit={sendForm}>
 				<h2>Dodaj prezent</h2>
 				<p>
 					<label>

@@ -25,9 +25,11 @@ export const GiftTableRow = (props: Props) => {
 	}
 	return (
 		<tr>
-			<th>
-				<Link to={`/gift/${props.gift.id}`}>{props.gift.name}</Link>
-			</th>
+			<td>
+				<Link className='button-link' to={`/gift/${props.gift.id}`}>
+					{props.gift.name}
+				</Link>
+			</td>
 			<td>{props.gift.count}</td>
 			<td>
 				<a href='#' onClick={deleteGift}>

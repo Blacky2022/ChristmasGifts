@@ -65,7 +65,3 @@ export class GiftRecord implements GiftEntity {
 		})
 	}
 }
-
-module.exports = {
-	GiftRecord,
-}

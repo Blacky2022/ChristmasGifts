@@ -16,6 +16,7 @@ giftRouter
 	})
 	.get('/:giftId', async (req: Request, res: Response): Promise<void> => {
 		const gift = await GiftRecord.getOne(req.params.giftId)
+		console.log(gift)
 		const givenCount = await gift.countGivenGifts()
 		res.json({
 			gift,

@@ -7,13 +7,10 @@ export const ChildrenList = () => {
 	const [data, setData] = useState<ListChildrenRes | null>(null)
 
 	const refreshGifts = async () => {
-		;(async () => {
-			setData(null)
-			const res = await fetch('http://localhost:3001/child')
-			const data = await res.json()
-			setData(data)
-		})()
-	}
+		setData(null)
+		const res = await fetch('http://localhost:3001/child')
+		setData(await res.json())
+	} 
 	useEffect(() => {
 		refreshGifts()
 	}, [])
@@ -24,7 +21,7 @@ export const ChildrenList = () => {
 	return (
 		<div className='container'>
 			<h1>Zaktualizuj prezent</h1>
-			<ChildrenTable  giftsList={data.giftsList}  childrenList={data.childrenList} />
+			<ChildrenTable giftsList={data.giftsList} childrenList={data.childrenList} />
 		</div>
 	)
 }

@@ -5,7 +5,7 @@ import './AddChild.css'
 export const AddChild = () => {
 	const [form, setForm] = useState<CreateChildReq>({
 		name: '',
-		giftId: '',
+		giftid: '',
 	})
 	const [loading, setLoading] = useState<boolean>(false)
 	const [resultInfo, setResultInfo] = useState<string | null>(null)
@@ -53,6 +53,7 @@ export const AddChild = () => {
 			setResultInfo(`${data.name} : dodano do listy.`)
 		} finally {
 			setLoading(false)
+			window.location.reload()
 		}
 	}
 
@@ -72,14 +73,15 @@ export const AddChild = () => {
 	}
 
 	return (
-		<div className='form-container'>
-			<form onSubmit={sendForm}>
+		<div className='container'>
+			<form className='form-container' onSubmit={sendForm}>
 				<h2>Dodaj dziecko</h2>
 				<p>
 					<label>
-						Imie:
+						<b>Imie:</b>
 						<br />
 						<input
+							className='input-field'
 							type='text'
 							placeholder='Imie dziecka'
 							value={form.name}
@@ -88,7 +90,9 @@ export const AddChild = () => {
 					</label>
 					{nameError && <span style={{ color: 'red' }}>{nameError}</span>}
 				</p>
-				<button type='submit'>Dodaj</button>
+				<button className='add-button' type='submit'>
+					Dodaj
+				</button>
 			</form>
 		</div>
 	)
